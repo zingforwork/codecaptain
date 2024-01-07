@@ -20,20 +20,20 @@ const App: React.FC = () => {
     }
     
     const result = await AiService.call(params) as ReadableStream<string>
-    const reader = result.getReader();
+    const reader = result.getReader()
 
     try {
       while (true) {
-        const { done, value } = await reader.read();
+        const { done, value } = await reader.read()
 
         if (done) {
-          break;
+          break
         }
 
         setMessages(prevMessages => prevMessages + value)
       }
     } finally {
-      reader.releaseLock();
+      reader.releaseLock()
     }
   }
 

@@ -6,7 +6,7 @@ import Utils from '@service/ai/Utils'
 import { Stream } from 'openai/streaming'
 
 const programmingLanguageMessages = (programmingLanguage: InputText): Messages =>
-  Utils.isFilledInput(programmingLanguage)
+  !Utils.isFilledInput(programmingLanguage)
     ? []
     : [
       {
@@ -108,6 +108,7 @@ function choiceRequest(params: AIParams): OpenaiRequest {
     model: ResponseType.choices,
     messages: choicesMessages.concat(
       instructionMessages(params.instruction),
+      programmingLanguageMessages(params.programmingLanguage),
       inputOutputMessages(params.inputOutputList),
       choicesFormatMessages
     ),
@@ -121,13 +122,9 @@ async function choices(params: AIParams): Promise<AIResult> {
 
   const data = response.choices[0]!.message.content
 
-  console.log(response)
-
   const result = data === null
     ? []
     : JSON.parse(data).list
-
-  console.log(result)
 
   return result
 }
