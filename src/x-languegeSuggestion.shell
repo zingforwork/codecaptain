@@ -1,0 +1,53 @@
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+    "model": "gpt-3.5-turbo-1106",
+    "response_format": { "type": "json_object" },
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant designed to output JSON array of string."
+      },
+      {
+        "role": "assistant",
+        "content": "json schema is { \"list\": [item1, item2, ...] } must have key \"list\""
+      },
+      {
+        "role": "user",
+        "content": "Suggest \"programming language\" name to solve problem expected at least 3-4 names"
+      },
+      {
+        "role": "assistant",
+        "content": "Do you have some part of code and/or instruction ?"
+      },
+      {
+        "role": "user",
+        "content": "Use type script pro lang to show merge if collapse and order min to max"
+      },
+      {
+        "role": "assistant",
+        "content": "Provide me sample input and output"
+      },
+      {
+        "role": "user",
+        "content": "input1: [(1, 10), (2, 6), (3, 5), (7, 9)]"
+      },
+      {
+        "role": "user",
+        "content": "output1: [(1, 10)]"
+      },
+      {
+        "role": "user",
+        "content": "input2: [(1, 5), (2, 3), (6, 7)]"
+      },
+      {
+        "role": "user",
+        "content": "output2: [(1,5), (6,7)]"
+      },
+      {
+        "role": "assistant",
+        "content": "Sure I will suggest you list of \"programming language\""
+      }
+    ]
+  }'
